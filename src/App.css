@@ -1,0 +1,33 @@
+#form {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  align-items: center;
+  margin: 30px;
+  background-color: yellow;
+  height: 700px;
+}
+
+input {
+  width: 400px;
+}
+label {
+  margin: 10px;
+}
+
+#card {
+  background-color: rgb(54, 165, 54);
+
+  width: 500px;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 200px;
+  height: 200px;
+}
