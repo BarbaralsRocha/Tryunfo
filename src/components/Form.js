@@ -9,7 +9,8 @@ class Form extends React.Component {
       cardAttr3,
       cardImage,
       cardRare,
-      cardTrunfo, /* hasTrunfo */
+      cardTrunfo,
+      /* hasTrunfo */
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick } = this.props;
@@ -106,7 +107,6 @@ class Form extends React.Component {
             <option>muito raro</option>
           </select>
         </label>
-
         <label htmlFor="trunfo">
           Super Trybe Trunfo
           <input

@@ -27,7 +27,10 @@ class App extends React.Component {
 
   handleButtonClick = (event) => {
     event.preventDefault();
-    const { name, description, attr1, attr2, attr3, image, rare, trunfo, arrayObj } = this.state;
+    const { name,
+      description, attr1, attr2,
+      attr3, image, rare, trunfo,
+      arrayObj } = this.state;
     const obj = {
       cardName: name,
       cardDescription: description,
@@ -39,8 +42,8 @@ class App extends React.Component {
       cardTrunfo: trunfo,
     };
 
-    return this.setState(({ 
-      arrayObj: [...arrayObj, obj], 
+    return this.setState(({
+      arrayObj: [...arrayObj, obj],
       name: '',
       description: '',
       attr1: '0',
@@ -53,7 +56,8 @@ class App extends React.Component {
   };
 
   render() {
-    const { name, description, attr1, attr2, attr3, image, rare, trunfo, arrayObj } = this.state;
+    const { name, description, attr1,
+      attr2, attr3, image, rare, trunfo } = this.state;
     const maxNumber = (atributo) => {
       const maxCards = 90;
       if (atributo <= maxCards && atributo >= 0) return atributo;
@@ -82,9 +86,10 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rare }
           cardTrunfo={ trunfo }
+          // hasTrunfo={ hasTrunfo }
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ buttonFunc() }
-          onSaveButtonClick = { this.handleButtonClick }
+          onSaveButtonClick={ this.handleButtonClick }
         />
         <Card
           cardName={ name }
