@@ -3,20 +3,18 @@ import Form from './components/Form';
 import Card from './components/Card';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-      description: '',
-      attr1: '0',
-      attr2: '0',
-      attr3: '0',
-      image: '',
-      rare: '',
-      trunfo: false,
-      arrayObj: [],
-    };
-  }
+state = {
+  name: '',
+  description: '',
+  attr1: '0',
+  attr2: '0',
+  attr3: '0',
+  image: '',
+  rare: '',
+  trunfo: false,
+  hasTrunfo: false,
+  arrayObj: [],
+};
 
   handleChange = ({ target }) => {
     const { name } = target;
@@ -40,7 +38,11 @@ class App extends React.Component {
       cardRare: rare,
       cardTrunfo: trunfo,
     };
-
+    if (trunfo) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    }
     return this.setState(({
       arrayObj: [...arrayObj, obj],
       name: '',
@@ -56,7 +58,7 @@ class App extends React.Component {
 
   render() {
     const { name, description, attr1,
-      attr2, attr3, image, rare, trunfo } = this.state;
+      attr2, attr3, image, rare, trunfo, hasTrunfo } = this.state;
     const maxNumber = (atributo) => {
       const maxCards = 90;
       if (atributo <= maxCards && atributo >= 0) return atributo;
@@ -85,7 +87,7 @@ class App extends React.Component {
           cardImage={ image }
           cardRare={ rare }
           cardTrunfo={ trunfo }
-          // hasTrunfo={ hasTrunfo }
+          hasTrunfo={ hasTrunfo }
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ buttonFunc() }
           onSaveButtonClick={ this.handleButtonClick }
