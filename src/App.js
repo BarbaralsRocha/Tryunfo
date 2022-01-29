@@ -58,7 +58,7 @@ state = {
 
   render() {
     const { name, description, attr1,
-      attr2, attr3, image, rare, trunfo, hasTrunfo } = this.state;
+      attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj } = this.state;
     const maxNumber = (atributo) => {
       const maxCards = 90;
       if (atributo <= maxCards && atributo >= 0) return atributo;
@@ -74,7 +74,6 @@ state = {
         && maxNumber(attr1) && maxNumber(attr2) && maxNumber(attr3));
       return button;
     };
-
     return (
       <main>
         <h1>Tryunfo</h1>
@@ -102,6 +101,20 @@ state = {
           cardRare={ rare }
           cardTrunfo={ trunfo }
         />
+        {
+          arrayObj.map((obj) => (<Card
+            key={ obj.cardName }
+            cardName={ obj.cardName }
+            cardDescription={ obj.cardDescription }
+            cardAttr1={ obj.cardAttr1 }
+            cardAttr2={ obj.cardAttr2 }
+            cardAttr3={ obj.cardAttr3 }
+            cardImage={ obj.cardImage }
+            cardRare={ obj.cardRare }
+            cardTrunfo={ obj.cardTrunfo }
+          />))
+        }
+
       </main>
     );
   }
