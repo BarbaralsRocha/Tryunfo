@@ -14,6 +14,7 @@ state = {
   trunfo: false,
   hasTrunfo: false,
   arrayObj: [],
+  search: '',
 };
 
   handleChange = ({ target }) => {
@@ -60,7 +61,7 @@ state = {
   card = (obj, name) => {
     const { arrayObj } = this.state;
     this.setState({ arrayObj: arrayObj.filter((newArr) => newArr !== obj) }); // se clicar no botao de remover a carta, retornará um novo array, sem o objeto da carta clicado
-    if (arrayObj.map((newArr) => newArr.cardTrunfo === true)) {
+    if (arrayObj.map((newArr) => newArr.cardTrunfo === true)) { // verifica se tem a carta excluida é um super trunfo
       this.setState({
         hasTrunfo: false,
       });
@@ -70,9 +71,22 @@ state = {
     return div;
   }
 
+  searchCard = ({ target }) => {
+    this.setState({ search: target.value });
+    const { arrayObj } = this.state;
+    // const findCard = arrayObj.filter((newArr) => !newArr.cardName.includes(target.value));
+    // console.log(findCard);
+    // if (findCard.length !== 0) {
+    //   return findCard.map((delCards) => document.getElementById(delCards.cardName).style.display = 'none');
+    // }
+    // const show = findCard.map((delCards) => document.getElementById(delCards.cardName).style.display = 'flex');
+    // return show;
+  }
+
+  // document.getElementById(delete.cardName).innerText =
   render() {
     const { name, description, attr1,
-      attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj } = this.state;
+      attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj, search } = this.state;
     const maxNumber = (atributo) => { // verifica a condição de que cada carta nao pode ser maior que 90 nem negativa
       const maxCards = 90;
       if (atributo <= maxCards && atributo >= 0) return atributo;
@@ -116,30 +130,38 @@ state = {
           cardRare={ rare }
           cardTrunfo={ trunfo }
         />
+        <input
+          data-testid="name-filter"
+          type="text"
+          id="search"
+          value={ search }
+          onChange={ this.searchCard }
+        />
         {
-          arrayObj.map((obj) => (
-            <div id={ obj.cardName } key={ obj.cardName }>
-              <Card
-                cardName={ obj.cardName }
-                cardDescription={ obj.cardDescription }
-                cardAttr1={ obj.cardAttr1 }
-                cardAttr2={ obj.cardAttr2 }
-                cardAttr3={ obj.cardAttr3 }
-                cardImage={ obj.cardImage }
-                cardRare={ obj.cardRare }
-                cardTrunfo={ obj.cardTrunfo }
-              />
-              <button
-                data-testid="delete-button"
-                type="submit"
-                onClick={ () => this.card(obj, obj.cardName) }
-              >
-                Excluir
-              </button>
-            </div>
-          ))
+          arrayObj
+            .filter((newArr) => newArr.cardName.includes(search))
+            .map((obj) => (
+              <div id={ obj.cardName } className="cards" key={ obj.cardName }>
+                <Card
+                  cardName={ obj.cardName }
+                  cardDescription={ obj.cardDescription }
+                  cardAttr1={ obj.cardAttr1 }
+                  cardAttr2={ obj.cardAttr2 }
+                  cardAttr3={ obj.cardAttr3 }
+                  cardImage={ obj.cardImage }
+                  cardRare={ obj.cardRare }
+                  cardTrunfo={ obj.cardTrunfo }
+                />
+                <button
+                  data-testid="delete-button"
+                  type="submit"
+                  onClick={ () => this.card(obj, obj.cardName) }
+                >
+                  Excluir
+                </button>
+              </div>
+            ))
         }
-
       </main>
     );
   }
