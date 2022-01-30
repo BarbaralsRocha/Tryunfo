@@ -73,17 +73,8 @@ state = {
 
   searchCard = ({ target }) => {
     this.setState({ search: target.value });
-    const { arrayObj } = this.state;
-    // const findCard = arrayObj.filter((newArr) => !newArr.cardName.includes(target.value));
-    // console.log(findCard);
-    // if (findCard.length !== 0) {
-    //   return findCard.map((delCards) => document.getElementById(delCards.cardName).style.display = 'none');
-    // }
-    // const show = findCard.map((delCards) => document.getElementById(delCards.cardName).style.display = 'flex');
-    // return show;
   }
 
-  // document.getElementById(delete.cardName).innerText =
   render() {
     const { name, description, attr1,
       attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj, search } = this.state;
