@@ -10,11 +10,13 @@ state = {
   attr2: '0',
   attr3: '0',
   image: '',
-  rare: '',
+  rare: 'normal',
   trunfo: false,
   hasTrunfo: false,
   arrayObj: [],
   search: '',
+  filterRare: 'todas',
+  trunfoCard: false,
 };
 
   handleChange = ({ target }) => {
@@ -53,7 +55,7 @@ state = {
       attr2: '0',
       attr3: '0',
       image: '',
-      rare: '',
+      rare: 'normal',
       trunfo: false,
     }));
   };
@@ -71,13 +73,10 @@ state = {
     return div;
   }
 
-  searchCard = ({ target }) => {
-    this.setState({ search: target.value });
-  }
-
   render() {
     const { name, description, attr1,
-      attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj, search } = this.state;
+      attr2, attr3, image, rare, trunfo, hasTrunfo, arrayObj,
+      search, filterRare, trunfoCard } = this.state;
     const maxNumber = (atributo) => { // verifica a condição de que cada carta nao pode ser maior que 90 nem negativa
       const maxCards = 90;
       if (atributo <= maxCards && atributo >= 0) return atributo;
@@ -124,13 +123,36 @@ state = {
         <input
           data-testid="name-filter"
           type="text"
-          id="search"
+          name="search"
           value={ search }
-          onChange={ this.searchCard }
+          onChange={ this.handleChange }
         />
+        <select
+          data-testid="rare-filter"
+          name="filterRare"
+          id="filterRare"
+          onChange={ this.handleChange }
+          value={ filterRare }
+        >
+          <option>todas</option>
+          <option>normal</option>
+          <option>raro</option>
+          <option>muito raro</option>
+        </select>
+        <label htmlFor="superTrunfo">
+          Super Trybe Trunfo
+          <input
+            data-testid="trunfo-filter"
+            name="trunfoCard"
+            onChange={ this.handleChange }
+            checked={ trunfoCard }
+            type="checkbox"
+          />
+        </label>
         {
           arrayObj
-            .filter((newArr) => newArr.cardName.includes(search))
+            .filter((nameCard) => (nameCard.cardName.includes(search))
+             && (filterRare === 'todas' || nameCard.cardRare === filterRare))
             .map((obj) => (
               <div id={ obj.cardName } className="cards" key={ obj.cardName }>
                 <Card
