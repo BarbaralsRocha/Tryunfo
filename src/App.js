@@ -126,6 +126,7 @@ state = {
           name="search"
           value={ search }
           onChange={ this.handleChange }
+          disabled={ trunfoCard }
         />
         <select
           data-testid="rare-filter"
@@ -133,6 +134,7 @@ state = {
           id="filterRare"
           onChange={ this.handleChange }
           value={ filterRare }
+          disabled={ trunfoCard }
         >
           <option>todas</option>
           <option>normal</option>
@@ -151,8 +153,12 @@ state = {
         </label>
         {
           arrayObj
-            .filter((nameCard) => (nameCard.cardName.includes(search))
-             && (filterRare === 'todas' || nameCard.cardRare === filterRare))
+            .filter((nameCard) => (
+              (trunfoCard === false)
+                && (nameCard.cardName.includes(search))
+                && (filterRare === 'todas' || nameCard.cardRare === filterRare)
+            )
+            || (trunfoCard === true && nameCard.cardTrunfo === true))
             .map((obj) => (
               <div id={ obj.cardName } className="cards" key={ obj.cardName }>
                 <Card
