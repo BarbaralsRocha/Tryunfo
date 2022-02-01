@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import './App.css';
 
 class App extends React.Component {
 state = {
@@ -96,91 +97,106 @@ state = {
     return (
       <main>
         <h1>Tryunfo</h1>
-        <Form
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr1 }
-          cardAttr2={ attr2 }
-          cardAttr3={ attr3 }
-          cardImage={ image }
-          cardRare={ rare }
-          cardTrunfo={ trunfo }
-          hasTrunfo={ hasTrunfo }
-          onInputChange={ this.handleChange }
-          isSaveButtonDisabled={ buttonFunc() }
-          onSaveButtonClick={ this.handleButtonClick }
-        />
-        <Card
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr1 }
-          cardAttr2={ attr2 }
-          cardAttr3={ attr3 }
-          cardImage={ image }
-          cardRare={ rare }
-          cardTrunfo={ trunfo }
-        />
-        <input
-          data-testid="name-filter"
-          type="text"
-          name="search"
-          value={ search }
-          onChange={ this.handleChange }
-          disabled={ trunfoCard }
-        />
-        <select
-          data-testid="rare-filter"
-          name="filterRare"
-          id="filterRare"
-          onChange={ this.handleChange }
-          value={ filterRare }
-          disabled={ trunfoCard }
-        >
-          <option>todas</option>
-          <option>normal</option>
-          <option>raro</option>
-          <option>muito raro</option>
-        </select>
-        <label htmlFor="superTrunfo">
-          Super Trybe Trunfo
-          <input
-            data-testid="trunfo-filter"
-            name="trunfoCard"
-            onChange={ this.handleChange }
-            checked={ trunfoCard }
-            type="checkbox"
+        <div id="form-card">
+          <Form
+            cardName={ name }
+            cardDescription={ description }
+            cardAttr1={ attr1 }
+            cardAttr2={ attr2 }
+            cardAttr3={ attr3 }
+            cardImage={ image }
+            cardRare={ rare }
+            cardTrunfo={ trunfo }
+            hasTrunfo={ hasTrunfo }
+            onInputChange={ this.handleChange }
+            isSaveButtonDisabled={ buttonFunc() }
+            onSaveButtonClick={ this.handleButtonClick }
           />
-        </label>
-        {
-          arrayObj
-            .filter((nameCard) => (
-              (trunfoCard === false)
+          <Card
+            cardName={ name }
+            cardDescription={ description }
+            cardAttr1={ attr1 }
+            cardAttr2={ attr2 }
+            cardAttr3={ attr3 }
+            cardImage={ image }
+            cardRare={ rare }
+            cardTrunfo={ trunfo }
+          />
+        </div>
+        <div id="filtros">
+          <label id="search" htmlFor="search">
+            Nome
+            <input
+              data-testid="name-filter"
+              type="text"
+              name="search"
+              id="search-input"
+              value={ search }
+              onChange={ this.handleChange }
+              disabled={ trunfoCard }
+            />
+          </label>
+          <label id="raridade" htmlFor="filterRare">
+            Raridade
+            <select
+              data-testid="rare-filter"
+              name="filterRare"
+              id="filterRare"
+              onChange={ this.handleChange }
+              value={ filterRare }
+              disabled={ trunfoCard }
+            >
+              <option>todas</option>
+              <option>normal</option>
+              <option>raro</option>
+              <option>muito raro</option>
+            </select>
+          </label>
+          <label htmlFor="superTrunfo">
+            Super Trybe Trunfo
+            <input
+              data-testid="trunfo-filter"
+              name="trunfoCard"
+              id="trunfoCard"
+              onChange={ this.handleChange }
+              checked={ trunfoCard }
+              type="checkbox"
+            />
+          </label>
+        </div>
+        <div className="cards">
+          {
+            arrayObj
+              .filter((nameCard) => (
+                (trunfoCard === false)
                 && (nameCard.cardName.includes(search))
                 && (filterRare === 'todas' || nameCard.cardRare === filterRare)
-            )
+              )
             || (trunfoCard === true && nameCard.cardTrunfo === true))
-            .map((obj) => (
-              <div id={ obj.cardName } className="cards" key={ obj.cardName }>
-                <Card
-                  cardName={ obj.cardName }
-                  cardDescription={ obj.cardDescription }
-                  cardAttr1={ obj.cardAttr1 }
-                  cardAttr2={ obj.cardAttr2 }
-                  cardAttr3={ obj.cardAttr3 }
-                  cardImage={ obj.cardImage }
-                  cardRare={ obj.cardRare }
-                  cardTrunfo={ obj.cardTrunfo }
-                />
-                <button
-                  data-testid="delete-button"
-                  type="submit"
-                  onClick={ () => this.card(obj, obj.cardName) }
-                >
-                  Excluir
-                </button>
-              </div>
-            ))
-        }
+              .map((obj) => (
+                <div id={ obj.cardName } className="cards-tryunfo" key={ obj.cardName }>
+                  <Card
+                    cardName={ obj.cardName }
+                    cardDescription={ obj.cardDescription }
+                    cardAttr1={ obj.cardAttr1 }
+                    cardAttr2={ obj.cardAttr2 }
+                    cardAttr3={ obj.cardAttr3 }
+                    cardImage={ obj.cardImage }
+                    cardRare={ obj.cardRare }
+                    cardTrunfo={ obj.cardTrunfo }
+                  />
+                  <button
+                    data-testid="delete-button"
+                    type="submit"
+                    id="delete-button"
+                    onClick={ () => this.card(obj, obj.cardName) }
+                  >
+                    Excluir
+                  </button>
+                </div>
+              ))
+          }
+        </div>
       </main>
     );
   }

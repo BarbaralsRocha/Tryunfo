@@ -107,11 +107,12 @@ class Form extends React.Component {
             <option>muito raro</option>
           </select>
         </label>
-        <label htmlFor="trunfo">
+        <label id="trunfoChecked" htmlFor="trunfo">
           Super Trybe Trunfo
           {
-            hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho' : <input
+            hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : <input
               data-testid="trunfo-input"
+              id="trunfo-check"
               name="trunfo"
               onChange={ onInputChange }
               checked={ cardTrunfo }

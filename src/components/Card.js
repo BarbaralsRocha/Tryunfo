@@ -14,22 +14,27 @@ class Card extends React.Component {
 
     return (
       <div id="card">
-        <p>Nome:</p>
-        <p data-testid="name-card">{cardName}</p>
-        <p>Imagem:</p>
+        <h1 id="card-name" data-testid="name-card">{cardName}</h1>
         <img data-testid="image-card" src={ cardImage } alt={ cardName } />
-        <p>Descrição:</p>
-        <p data-testid="description-card">{cardDescription}</p>
-        <p>Atributo 1:</p>
-        <p data-testid="attr1-card">{cardAttr1}</p>
-        <p>Atributo 2:</p>
-        <p data-testid="attr2-card">{cardAttr2}</p>
-        <p>Atributo 3:</p>
-        <p data-testid="attr3-card">{cardAttr3}</p>
+        <p className="infocard" data-testid="description-card">{cardDescription}</p>
+        <div id="card-atributos">
+          <div className="atributos">
+            <p>Atributo 1:</p>
+            <p className="infocard" data-testid="attr1-card">{cardAttr1}</p>
+          </div>
+          <div className="atributos">
+            <p>Atributo 2:</p>
+            <p className="infocard" data-testid="attr2-card">{cardAttr2}</p>
+          </div>
+          <div className="atributos">
+            <p>Atributo 3:</p>
+            <p className="infocard" data-testid="attr3-card">{cardAttr3}</p>
+          </div>
+        </div>
         <p>Raridade:</p>
-        <p data-testid="rare-card">{cardRare}</p>
+        <p className="infocard" data-testid="rare-card">{cardRare}</p>
         <p>Super Trunfo?</p>
-        {cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p>}
+        {cardTrunfo && <p className="infocard" data-testid="trunfo-card">Super Trunfo</p>}
       </div>
     );
   }
